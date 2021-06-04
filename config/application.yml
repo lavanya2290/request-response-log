@@ -1,0 +1,18 @@
+server:
+  port: 8089
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: ${LOG_PATH:-logs}/
+      file-date-format: .yyyy-MM-dd
+      pattern: "%a %t %r %s %D %T %F"
+      prefix: access_log
+      request-attributes-enabled: true
+      rotate: true
+      suffix: .log
+  servlet:
+    context-path: /demo
+
+logging:
+  config: config/logback-spring.xml
+  path: logs

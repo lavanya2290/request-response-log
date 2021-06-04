@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <appender name="CONSOLE_REF" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}
+                [%thread][%X{servletPath}-%X{correlationId}-%X{serviceName}-%X{auditStep}] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNCCONSOLE" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>10000</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="CONSOLE_REF"/>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="ASYNCCONSOLE"/>
+    </root>
+
+    <logger name="org.learning.demo.RequestResponseLoggingFilter" level="DEBUG" additivity="false">
+        <appender-ref ref="ASYNCCONSOLE"/>
+    </logger>
+
+</configuration>
